@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rivière Med Spa Portland | Boutique Aesthetic Treatments</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ivory: #f9f5f0;
+  --cream: #f2ebe2;
+  --blush: #e8d5c4;
+  --rose: #c4866a;
+  --rose-deep: #9e6349;
+  --sand: #d4c0ac;
+  --charcoal: #1e1a17;
+  --ink: #2d2520;
+  --muted: #8a7a6e;
+  --border: rgba(196,134,106,0.18);
+  --border-soft: rgba(196,134,106,0.1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--ivory);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ─── NOISE GRAIN ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.25rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s, padding 0.4s;
+}
+
+nav.scrolled {
+  background: rgba(249,245,240,0.96);
+  backdrop-filter: blur(12px);
+  padding: 0.9rem 3rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.nav-logo em { font-style: italic; color: var(--rose); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--rose); }
+
+.nav-cta {
+  padding: 0.55rem 1.4rem;
+  background: var(--charcoal);
+  color: white !important;
+  border-radius: 2px;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.2em;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--rose-deep) !important; color: white !important; }
+
+/* ─── HERO ─── */
+.hero {
+  height: 100vh;
+  min-height: 700px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 4rem 4rem 5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--rose);
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--charcoal);
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--rose);
+  display: block;
+}
+
+.hero-sub {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 380px;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.04em;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-primary {
+  padding: 0.85rem 2rem;
+  background: var(--charcoal);
+  color: white;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.15s;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--rose-deep); transform: translateY(-1px); }
+
+.btn-ghost {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s;
+}
+.btn-ghost::after { content: '→'; transition: transform 0.2s; }
+.btn-ghost:hover { color: var(--rose); }
+.btn-ghost:hover::after { transform: translateX(4px); }
+
+.hero-locations {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 2rem;
+}
+
+.hero-location p {
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+.hero-location span {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.hero-right {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: brightness(0.92) saturate(0.9);
+}
+
+.hero-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--ivory) 0%, transparent 20%);
+}
+
+/* Floating badge */
+.hero-badge {
+  position: absolute;
+  bottom: 3rem;
+  left: -1.5rem;
+  background: var(--charcoal);
+  color: white;
+  padding: 1.2rem 1.5rem;
+  max-width: 200px;
+  z-index: 3;
+}
+.hero-badge p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+.hero-badge span {
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+/* Vertical text */
+.hero-vertical-text {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center center;
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  white-space: nowrap;
+  z-index: 3;
+}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--cream);
+  padding: 0.9rem 0;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marquee 28s linear infinite;
+  white-space: nowrap;
+}
+
+.marquee-item {
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.marquee-item::after {
+  content: '✦';
+  color: var(--rose);
+  font-size: 0.5rem;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ─── SECTION COMMON ─── */
+section { padding: 6rem 5rem; }
+
+.section-label {
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rose);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--rose);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--charcoal);
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--rose);
+}
+
+/* ─── ABOUT / VISION ─── */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  background: var(--cream);
+}
+
+.about-images {
+  position: relative;
+  height: 560px;
+}
+
+.about-img-main {
+  position: absolute;
+  top: 0; left: 0;
+  width: 72%;
+  height: 80%;
+  object-fit: cover;
+  filter: brightness(0.93) saturate(0.88);
+}
+
+.about-img-accent {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 52%;
+  height: 50%;
+  object-fit: cover;
+  border: 6px solid var(--cream);
+  filter: brightness(0.93) saturate(0.88);
+}
+
+.about-text .section-title { margin-bottom: 1.5rem; }
+
+.about-body {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--rose);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ─── TREATMENTS GRID ─── */
+.treatments { background: var(--ivory); }
+
+.treatments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+}
+
+.treatments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: var(--border);
+}
+
+.treatment-card {
+  background: var(--ivory);
+  padding: 2.5rem 2rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.treatment-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--rose);
+  transition: width 0.4s ease;
+}
+
+.treatment-card:hover { background: var(--cream); }
+.treatment-card:hover::before { width: 100%; }
+
+.treatment-icon {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+  object-fit: contain;
+}
+
+.treatment-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--sand);
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+
+.treatment-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+}
+
+.treatment-desc {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+.treatment-arrow {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-size: 1rem;
+  color: var(--rose);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.treatment-card:hover .treatment-arrow { opacity: 1; transform: translate(3px, -3px); }
+
+/* Featured card */
+.treatment-card.featured {
+  grid-column: span 1;
+  background: var(--charcoal);
+}
+.treatment-card.featured .treatment-num { color: var(--sand); opacity: 0.4; }
+.treatment-card.featured .treatment-name { color: white; }
+.treatment-card.featured .treatment-desc { color: rgba(255,255,255,0.5); }
+.treatment-card.featured::before { background: var(--rose); }
+.treatment-card.featured .treatment-arrow { color: var(--rose); }
+.treatment-card.featured:hover { background: var(--ink); }
+
+/* ─── BEFORE/AFTER ─── */
+.results {
+  background: var(--charcoal);
+  color: white;
+  padding: 6rem 5rem;
+}
+
+.results .section-label { color: var(--rose); }
+.results .section-label::before { background: var(--rose); }
+.results .section-title { color: white; }
+.results .section-title em { color: var(--rose); }
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.result-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+
+.result-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%) brightness(0.9);
+  transition: transform 0.5s ease, filter 0.4s;
+}
+
+.result-item:hover img { transform: scale(1.04); filter: grayscale(0%) brightness(1); }
+
+.result-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(30,26,23,0.85));
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.result-item:hover .result-label { opacity: 1; }
+
+/* ─── TEAM ─── */
+.team { background: var(--cream); }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--border-soft);
+  margin-top: 3.5rem;
+}
+
+.team-card {
+  background: var(--cream);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+.team-card:hover { background: var(--ivory); }
+
+.team-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blush), var(--sand));
+  margin: 0 auto 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: white;
+  font-weight: 300;
+}
+
+.team-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  margin-bottom: 0.3rem;
+}
+
+.team-role {
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 1rem;
+}
+
+.team-bio {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* ─── REVIEWS ─── */
+.reviews { background: var(--ivory); }
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.review-card {
+  background: var(--cream);
+  padding: 2rem;
+  border: 1px solid var(--border-soft);
+  position: relative;
+}
+
+.review-stars {
+  color: var(--rose);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+
+.review-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.review-author {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.review-quote {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem;
+  color: var(--blush);
+  line-height: 1;
+  font-weight: 300;
+}
+
+/* ─── CTA STRIP ─── */
+.cta-strip {
+  background: var(--rose);
+  padding: 4rem 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cta-strip h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 300;
+  color: white;
+  line-height: 1.15;
+}
+.cta-strip h2 em { font-style: italic; display: block; }
+
+.cta-strip-actions { display: flex; gap: 1rem; align-items: center; flex-shrink: 0; }
+
+.btn-white {
+  padding: 0.85rem 2rem;
+  background: white;
+  color: var(--rose-deep);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.btn-white:hover { transform: translateY(-1px); }
+
+.btn-outline-white {
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.5);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+/* ─── LOCATIONS ─── */
+.locations {
+  background: var(--cream);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.location-card {
+  padding: 5rem;
+  border-right: 1px solid var(--border);
+}
+.location-card:last-child { border-right: none; }
+
+.location-tag {
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 1rem;
+}
+
+.location-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  margin-bottom: 1.5rem;
+}
+
+.location-detail {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.location-hours {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--muted);
+  padding: 0.3rem 0;
+  letter-spacing: 0.03em;
+}
+.hours-row span:last-child { color: var(--ink); }
+.hours-row.closed span:last-child { color: var(--sand); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--charcoal);
+  padding: 4rem 5rem 2.5rem;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 2rem;
+}
+
+.footer-brand .nav-logo { display: block; margin-bottom: 1rem; color: white; }
+.footer-brand .nav-logo em { color: var(--rose); }
+
+.footer-tagline {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+  max-width: 260px;
+}
+
+.footer-col h4 {
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 1.25rem;
+}
+
+.footer-col a, .footer-col p {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--rose); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copy {
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.1em;
+}
+
+/* ─── CHAT WIDGET PREVIEW ─── */
+.chat-widget {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 200;
+}
+
+.chat-btn {
+  width: 56px;
+  height: 56px;
+  background: var(--charcoal);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(30,26,23,0.25);
+  transition: background 0.2s, transform 0.2s;
+  position: relative;
+}
+.chat-btn:hover { background: var(--rose-deep); transform: scale(1.05); }
+
+.chat-btn svg { width: 22px; height: 22px; fill: white; }
+
+.chat-dot {
+  position: absolute;
+  top: 3px; right: 3px;
+  width: 10px; height: 10px;
+  background: #7ecb8a;
+  border-radius: 50%;
+  border: 2px solid var(--charcoal);
+  animation: chatPulse 2s infinite;
+}
+
+@keyframes chatPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* ─── SCROLL ANIMATIONS ─── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  nav.scrolled { padding: 0.75rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+  .hero-left { padding: 7rem 1.5rem 3rem; }
+  .hero-right { height: 50vw; }
+  .hero-badge { display: none; }
+  section { padding: 4rem 1.5rem; }
+  .about, .locations { grid-template-columns: 1fr; }
+  .about-images { height: 300px; }
+  .treatments-grid { grid-template-columns: 1fr; }
+  .results-grid { grid-template-columns: 1fr 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .cta-strip { flex-direction: column; gap: 2rem; text-align: center; padding: 3rem 1.5rem; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .treatments-header, .results-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .location-card { padding: 2.5rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">Rivi<em>è</em>re</a>
+  <ul class="nav-links">
+    <li><a href="#treatments">Treatments</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#locations">Locations</a></li>
+    <li><a href="#" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Portland's Boutique Med Spa</div>
+    <h1>Uncover your <em>best skin.</em></h1>
+    <p class="hero-sub">Family-owned. Personally attentive. Expert treatments in a space where every client is known by name.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Book a Consultation</a>
+      <a href="#treatments" class="btn-ghost">Explore Treatments</a>
+    </div>
+    <div class="hero-locations">
+      <div class="hero-location">
+        <p>Forest Heights</p>
+        <span>2127 NW Miller Rd</span>
+      </div>
+      <div class="hero-location">
+        <p>Alameda · New</p>
+        <span>2416 NE Fremont St</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img class="hero-img" src="https://rivierespa.com/wp-content/uploads/2022/02/riviere-med-spa-portland-front.jpg" alt="Rivière Med Spa Portland" />
+    <div class="hero-img-overlay"></div>
+    <div class="hero-badge">
+      <p>"Give us your trust, we've got the rest."</p>
+      <span>Our promise to every client</span>
+    </div>
+    <div class="hero-vertical-text">Forest Heights · Alameda · Portland, OR</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Botox</div><div class="marquee-item">Fillers</div>
+    <div class="marquee-item">Laser Hair Removal</div><div class="marquee-item">HydraFacial</div>
+    <div class="marquee-item">RF Microneedling</div><div class="marquee-item">IPL</div>
+    <div class="marquee-item">Body Contouring</div><div class="marquee-item">Dermaplaning</div>
+    <div class="marquee-item">Chemical Peel</div><div class="marquee-item">Skin Resurfacing</div>
+    <div class="marquee-item">Tattoo Removal</div><div class="marquee-item">Massage</div>
+    <!-- Duplicate for seamless loop -->
+    <div class="marquee-item">Botox</div><div class="marquee-item">Fillers</div>
+    <div class="marquee-item">Laser Hair Removal</div><div class="marquee-item">HydraFacial</div>
+    <div class="marquee-item">RF Microneedling</div><div class="marquee-item">IPL</div>
+    <div class="marquee-item">Body Contouring</div><div class="marquee-item">Dermaplaning</div>
+    <div class="marquee-item">Chemical Peel</div><div class="marquee-item">Skin Resurfacing</div>
+    <div class="marquee-item">Tattoo Removal</div><div class="marquee-item">Massage</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-images fade-up">
+    <img class="about-img-main" src="https://rivierespa.com/wp-content/uploads/2021/01/laser_hair_removal.jpg" alt="Rivière treatment" />
+    <img class="about-img-accent" src="https://rivierespa.com/wp-content/uploads/2021/01/hydrafacial_portland.png" alt="HydraFacial" />
+  </div>
+  <div class="about-text fade-up">
+    <div class="section-label">Our Vision</div>
+    <h2 class="section-title">Uncovering <em>happiness</em></h2>
+    <p class="about-body">We are a family-owned, community-oriented boutique medical spa tucked in Portland's beautiful Forest Heights neighborhood — now open in Alameda too. At Rivière, every client is treated like family, cared for with passion and integrity.</p>
+    <p class="about-body">We make it our goal to create the right, personalized plan for your exact needs. We'll know you by your first name.</p>
+    <a href="#" class="btn-primary">Meet Our Team</a>
+    <div class="about-stats">
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years in Portland</div>
+      </div>
+      <div>
+        <div class="stat-num">200+</div>
+        <div class="stat-label">5-Star Reviews</div>
+      </div>
+      <div>
+        <div class="stat-num">2</div>
+        <div class="stat-label">Locations</div>
+      </div>
+      <div>
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Treatments Offered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREATMENTS -->
+<section class="treatments" id="treatments">
+  <div class="treatments-header fade-up">
+    <div>
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Our <em>treatments</em></h2>
+    </div>
+    <a href="#" class="btn-ghost">View all services</a>
+  </div>
+  <div class="treatments-grid fade-up">
+    <a href="#" class="treatment-card featured">
+      <div class="treatment-num">01</div>
+      <div class="treatment-name">Botox &amp; Neuromodulators</div>
+      <div class="treatment-desc">Botox, Xeomin, Dysport — administered by our expert injectors for natural, refreshed results.</div>
+      <div class="treatment-arrow">↗</div>
+    </a>
+    <a href="#" class="treatment-card">
+      <div class="treatment-num">02</div>
+      <div class="treatment-name">Dermal Fillers</div>
+      <div class="treatment-desc">Juvederm, Restylane, Radiesse, Sculptra, and Kybella for volume, contour, and definition.</div>
+      <div class="treatment-arrow">↗</div>
+    </a>
+    <a href="#" class="treatment-card">
+      <div class="treatment-num">03</div>
+      <div class="treatment-name">Laser Hair Removal</div>
+      <div class="treatment-desc">First truly painless laser in Oregon. Works on all skin types. Permanent results with everyday pricing.</div>
+      <div class="treatment-arrow">↗</div>
+    </a>
+    <a href="#" class="treatment-card">
+      <div class="treatment-num">04</div>
+      <div class="treatment-name">HydraFacial®</div>
+      <div class="treatment-desc">Deep cleanse, exfoliate, extract, and hydrate. Our most popular facial — glowing results after one session.</div>
+      <div class="treatment-arrow">↗</div>
+    </a>
+    <a href="#" class="treatment-card">
+      <div class="treatment-num">05</div>
+      <div class="treatment-name">RF Microneedling</div>
+      <div class="treatment-desc">Radiofrequency energy paired with microneedling to tighten, resurface, and rejuvenate.</div>
+      <div class="treatment-arrow">↗</div>
+    </a>
+    <a href="#" class="treatment-card">
+      <div class="treatment-num">06</div>
+      <div class="treatment-name">IPL Photofacial</div>
+      <div class="treatment-desc">Correct redness, sunspots, and uneven tone with intense pulsed light therapy.</div>
+      <div class="treatment-arrow">↗</div>
+    </a>
+    <a href="#" class="treatment-card">
+      <div class="treatment-num">07</div>
+      <div class="treatment-name">Body Contouring</div>
+      <div class="treatment-desc">Non-invasive fat reduction and muscle toning. Getting fitter, made easy.</div>
+      <div class="treatment-arrow">↗</div>
+    </a>
+    <a href="#" class="treatment-card">
+      <div class="treatment-num">08</div>
+      <div class="treatment-name">Dermaplaning</div>
+      <div class="treatment-desc">Manual exfoliation that removes dead skin and peach fuzz for a luminous, smooth complexion.</div>
+      <div class="treatment-arrow">↗</div>
+    </a>
+    <a href="#" class="treatment-card">
+      <div class="treatment-num">09</div>
+      <div class="treatment-name">Massage · New</div>
+      <div class="treatment-desc">Customized treatments combining techniques. Now available at both locations.</div>
+      <div class="treatment-arrow">↗</div>
+    </a>
+  </div>
+</section>
+
+<!-- BEFORE/AFTER -->
+<section class="results" id="results">
+  <div class="results-header fade-up">
+    <div>
+      <div class="section-label">Client Results</div>
+      <h2 class="section-title">Real people. <em>Real results.</em></h2>
+    </div>
+    <a href="#" class="btn-outline-white">View Gallery</a>
+  </div>
+  <div class="results-grid fade-up">
+    <div class="result-item">
+      <img src="https://rivierespa.com/wp-content/uploads/2023/10/Lip-Filler2-1024x1024.png" alt="Lip Filler Before After" />
+      <div class="result-label">Lip Filler</div>
+    </div>
+    <div class="result-item">
+      <img src="https://rivierespa.com/wp-content/uploads/2021/03/Website-Lip-BA-1024x1024.png" alt="Before After" />
+      <div class="result-label">Dermal Filler</div>
+    </div>
+    <div class="result-item">
+      <img src="https://rivierespa.com/wp-content/uploads/2021/03/Tina-Botox-And-Filler-BA-1024x1024.png" alt="Botox Before After" />
+      <div class="result-label">Botox &amp; Filler</div>
+    </div>
+    <div class="result-item">
+      <img src="https://rivierespa.com/wp-content/uploads/2021/03/Website-Diana-BA-1-1024x1024.png" alt="Before After" />
+      <div class="result-label">Long-term Results</div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="fade-up">
+    <div class="section-label">Our People</div>
+    <h2 class="section-title">The team behind <em>your results</em></h2>
+  </div>
+  <div class="team-grid fade-up">
+    <div class="team-card">
+      <div class="team-avatar">C</div>
+      <div class="team-name">Chhavi Thakur</div>
+      <div class="team-role">Co-Founder</div>
+      <p class="team-bio">Chhavi is the heart of Rivière — clients consistently note her personal follow-ups and genuine care. She built this spa around the belief that everyone deserves to feel known and valued.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">T</div>
+      <div class="team-name">Tracy</div>
+      <div class="team-role">Expert Injector · RN</div>
+      <p class="team-bio">With 24 years in the medical field including the neonatal ICU, Tracy combines science, technique, and an artist's eye. Known for transparency and driving natural results.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">P</div>
+      <div class="team-name">Peyton</div>
+      <div class="team-role">Lead Esthetician</div>
+      <p class="team-bio">Clients follow Peyton wherever she goes. Known for her warmth, positive energy, and exceptional HydraFacial and laser results. She makes every visit a genuinely relaxing experience.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="fade-up">
+    <div class="section-label">Client Love</div>
+    <h2 class="section-title">What Portland <em>is saying</em></h2>
+  </div>
+  <div class="reviews-grid fade-up">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-quote">"</div>
+      <p class="review-text">I cannot recommend Rivière enough. Tracie is top tier — she completely smoothed my forehead while keeping everything totally natural. 10/10.</p>
+      <div class="review-author">Andi · Google Review</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-quote">"</div>
+      <p class="review-text">Tracy, Chhavi, and Peyton go above and beyond. From lip filler to Botox — every treatment is executed beautifully, leaving you feeling like the best version of yourself.</p>
+      <div class="review-author">Verified Client · Google</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-quote">"</div>
+      <p class="review-text">What really stood out was the level of care and attention. It didn't feel rushed or transactional at all. Very professional, yet warm and friendly. Jen is truly exceptional.</p>
+      <div class="review-author">Rex · Google Review</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <h2>Ready to start your <em>glow-up?</em></h2>
+  <div class="cta-strip-actions">
+    <a href="#" class="btn-white">Book Free Consult</a>
+    <a href="tel:5039746979" class="btn-outline-white">(503) 974-6979</a>
+  </div>
+</div>
+
+<!-- LOCATIONS -->
+<section class="locations" id="locations" style="padding:0;">
+  <div class="location-card">
+    <div class="location-tag">Original Location</div>
+    <div class="location-name">Forest Heights</div>
+    <p class="location-detail">2127 NW Miller Rd, Portland, OR 97229</p>
+    <p class="location-detail">(503) 974-6979</p>
+    <p class="location-detail">help@rivierespa.com</p>
+    <div class="location-hours">
+      <div class="hours-row closed"><span>Sun – Mon</span><span>Closed</span></div>
+      <div class="hours-row"><span>Tue – Fri</span><span>9:00 AM – 6:00 PM</span></div>
+      <div class="hours-row"><span>Saturday</span><span>8:00 AM – 4:30 PM</span></div>
+    </div>
+  </div>
+  <div class="location-card">
+    <div class="location-tag">Now Open · New</div>
+    <div class="location-name">Alameda · Irvington</div>
+    <p class="location-detail">2416 NE Fremont St, Portland, OR 97212</p>
+    <p class="location-detail">(503) 974-6979</p>
+    <p class="location-detail">help@rivierespa.com</p>
+    <div class="location-hours">
+      <div class="hours-row closed"><span>Sun – Mon</span><span>Closed</span></div>
+      <div class="hours-row"><span>Tue – Fri</span><span>9:00 AM – 6:00 PM</span></div>
+      <div class="hours-row"><span>Saturday</span><span>8:00 AM – 4:30 PM</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">Rivi<em>è</em>re</a>
+      <p class="footer-tagline">A family-owned boutique med spa in Portland, Oregon. Give us your trust — we've got the rest.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Treatments</h4>
+      <a href="#">Botox®</a>
+      <a href="#">Fillers</a>
+      <a href="#">Laser Hair Removal</a>
+      <a href="#">HydraFacial®</a>
+      <a href="#">RF Microneedling</a>
+      <a href="#">Body Contouring</a>
+    </div>
+    <div class="footer-col">
+      <h4>More</h4>
+      <a href="#">IPL</a>
+      <a href="#">Dermaplaning</a>
+      <a href="#">Chemical Peel</a>
+      <a href="#">Tattoo Removal</a>
+      <a href="#">Massage</a>
+      <a href="#">Financing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Our Team</a>
+      <a href="#">Careers</a>
+      <a href="#">Policies</a>
+      <a href="#">Instagram</a>
+      <a href="#">Book Now</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Rivière Med Spa LLC · Portland, Oregon · All rights reserved</p>
+    <p class="footer-copy">Forest Heights · Alameda · rivierespa.com</p>
+  </div>
+</footer>
+
+<!-- CHAT WIDGET -->
+<div class="chat-widget">
+  <button class="chat-btn" title="Chat with us">
+    <div class="chat-dot"></div>
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+  </button>
+</div>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Scroll animations
+const fadeEls = document.querySelectorAll('.fade-up');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
+
