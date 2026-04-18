@@ -932,7 +932,8 @@ footer {
   .team-grid { grid-template-columns: 1fr; }
   .reviews-grid { grid-template-columns: 1fr; }
   .cta-strip { flex-direction: column; gap: 2rem; text-align: center; padding: 3rem 1.5rem; }
-  .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-top { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
   .treatments-header, .results-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .location-card { padding: 2.5rem 1.5rem; border-right: none; border-bottom: 1px solid var(--border); }
 }
@@ -1267,12 +1268,248 @@ footer {
 </footer>
 
 <!-- CHAT WIDGET -->
+<style>
+.chat-panel {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  width: 340px;
+  max-height: 480px;
+  background: var(--warm-white, #fdfaf7);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(30,26,23,0.18);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 201;
+  font-family: 'Jost', sans-serif;
+}
+.chat-panel.open { display: flex; }
+.chat-panel-header {
+  background: var(--charcoal);
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.chat-panel-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--rose), var(--blush));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; color: white; flex-shrink: 0;
+}
+.chat-panel-header-info h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem; font-weight: 400; color: white;
+}
+.chat-panel-header-info p {
+  font-size: 0.6rem; font-weight: 300;
+  color: var(--blush); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.chat-panel-close {
+  margin-left: auto; background: none; border: none;
+  color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.2rem; line-height: 1;
+}
+.chat-panel-close:hover { color: white; }
+.chat-panel-messages {
+  flex: 1; overflow-y: auto; padding: 1rem;
+  display: flex; flex-direction: column; gap: 0.7rem;
+  background: #f9f5f0;
+}
+.chat-panel-messages::-webkit-scrollbar { width: 3px; }
+.chat-panel-messages::-webkit-scrollbar-thumb { background: var(--blush); }
+.pmsg { display: flex; gap: 0.5rem; align-items: flex-end; }
+.pmsg.user { flex-direction: row-reverse; }
+.pmsg-bubble {
+  max-width: 80%; padding: 0.55rem 0.8rem;
+  border-radius: 14px; font-size: 0.78rem;
+  line-height: 1.5; font-weight: 300;
+}
+.pmsg.bot .pmsg-bubble {
+  background: white; color: #2d2520;
+  border: 1px solid rgba(196,134,106,0.18);
+  border-bottom-left-radius: 3px;
+}
+.pmsg.user .pmsg-bubble {
+  background: var(--charcoal); color: white;
+  border-bottom-right-radius: 3px;
+}
+.pmsg-av {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--rose), var(--blush));
+  flex-shrink: 0; display: flex; align-items: center;
+  justify-content: center; font-size: 0.6rem; color: white;
+  font-family: 'Cormorant Garamond', serif;
+}
+.chat-typing { display: flex; gap: 3px; align-items: center; padding: 0.55rem 0.8rem;
+  background: white; border: 1px solid rgba(196,134,106,0.18);
+  border-radius: 14px; border-bottom-left-radius: 3px; width: fit-content; }
+.chat-typing span { width: 4px; height: 4px; border-radius: 50%;
+  background: var(--rose); animation: typing 1.2s infinite; }
+.chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+.chat-quick-replies { display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 0.5rem 1rem 0; }
+.chat-chip {
+  padding: 0.3rem 0.65rem; border: 1px solid rgba(196,134,106,0.25);
+  border-radius: 20px; font-size: 0.68rem; color: #9e6349;
+  background: transparent; cursor: pointer; font-family: 'Jost', sans-serif;
+  transition: all 0.2s;
+}
+.chat-chip:hover { background: var(--rose); color: white; border-color: var(--rose); }
+.chat-panel-input {
+  padding: 0.6rem 0.75rem; border-top: 1px solid rgba(196,134,106,0.15);
+  display: flex; gap: 0.4rem; background: white;
+}
+.chat-panel-input input {
+  flex: 1; border: 1px solid rgba(196,134,106,0.2); border-radius: 20px;
+  padding: 0.45rem 0.85rem; font-family: 'Jost', sans-serif;
+  font-size: 0.76rem; font-weight: 300; color: #2d2520;
+  background: #f9f5f0; outline: none;
+}
+.chat-panel-input input:focus { border-color: var(--rose); }
+.chat-send {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--charcoal); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.2s;
+}
+.chat-send:hover { background: var(--rose-deep); }
+.chat-send svg { width: 12px; height: 12px; fill: white; }
+@media (max-width: 400px) {
+  .chat-panel { width: calc(100vw - 2rem); right: 1rem; }
+}
+</style>
+
 <div class="chat-widget">
-  <button class="chat-btn" title="Chat with us">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <div class="chat-panel-avatar">R</div>
+      <div class="chat-panel-header-info">
+        <h4>Rivière Assistant</h4>
+        <p>Online now</p>
+      </div>
+      <button class="chat-panel-close" id="chatClose">✕</button>
+    </div>
+    <div class="chat-panel-messages" id="panelMessages"></div>
+    <div id="panelChips"></div>
+    <div class="chat-panel-input">
+      <input type="text" id="panelInput" placeholder="Ask about treatments…" />
+      <button class="chat-send" id="panelSend">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="chat-btn" id="chatToggle" title="Chat with us">
     <div class="chat-dot"></div>
     <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
   </button>
 </div>
+
+<script>
+const SYSTEM = `You are a warm, elegant AI concierge for Rivière Med Spa, a boutique family-owned medical spa in Portland, Oregon. Rivière offers: Botox, Xeomin, Dysport, Juvederm/Restylane/Radiesse fillers, Kybella, painless laser hair removal (first in Oregon, all skin types), RF Microneedling, IPL, HydraFacial, Dermaplaning, body contouring, massage. Two locations: Forest Heights (2127 NW Miller Rd) and Alameda (2416 NE Fremont St). Hours: Tue-Fri 9am-6pm, Sat 8am-4:30pm, closed Sun-Mon. Phone: (503) 974-6979. Key staff: Chhavi (founder), Tracy (RN injector), Peyton (esthetician). Tone: warm, refined, never pushy. Keep responses to 2-3 sentences. After 2 exchanges offer to capture contact info.`;
+
+let history = [];
+let leadDone = false;
+const msgs = document.getElementById('panelMessages');
+const chips = document.getElementById('panelChips');
+const input = document.getElementById('panelInput');
+
+document.getElementById('chatToggle').onclick = () => {
+  const panel = document.getElementById('chatPanel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open') && msgs.children.length === 0) initChat();
+};
+document.getElementById('chatClose').onclick = () => {
+  document.getElementById('chatPanel').classList.remove('open');
+};
+document.getElementById('panelSend').onclick = () => sendMsg(input.value);
+input.addEventListener('keypress', e => { if (e.key === 'Enter') sendMsg(input.value); });
+
+function initChat() {
+  setTimeout(() => {
+    showTyping();
+    setTimeout(() => {
+      hideTyping();
+      addMsg('Welcome to Rivière ✦ How can I help you today?', 'bot');
+      showChips(['Botox & fillers', 'Laser hair removal', 'Book a consult', 'Hours & locations']);
+    }, 1000);
+  }, 300);
+}
+
+function addMsg(text, role) {
+  const d = document.createElement('div');
+  d.className = `pmsg ${role}`;
+  d.innerHTML = role === 'bot'
+    ? `<div class="pmsg-av">R</div><div class="pmsg-bubble">${text}</div>`
+    : `<div class="pmsg-bubble">${text}</div>`;
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const d = document.createElement('div');
+  d.className = 'pmsg bot'; d.id = 'ptyping';
+  d.innerHTML = `<div class="pmsg-av">R</div><div class="chat-typing"><span></span><span></span><span></span></div>`;
+  msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+}
+function hideTyping() { const t = document.getElementById('ptyping'); if(t) t.remove(); }
+
+function showChips(arr) {
+  chips.innerHTML = '';
+  if (!arr.length) return;
+  const div = document.createElement('div');
+  div.className = 'chat-quick-replies';
+  arr.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'chat-chip'; b.textContent = c;
+    b.onclick = () => { chips.innerHTML = ''; sendMsg(c); };
+    div.appendChild(b);
+  });
+  chips.appendChild(div);
+}
+
+async function sendMsg(text) {
+  if (!text.trim()) return;
+  input.value = '';
+  chips.innerHTML = '';
+  addMsg(text, 'user');
+  history.push({ role: 'user', content: text });
+  showTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM,
+        messages: history
+      })
+    });
+    const data = await res.json();
+    hideTyping();
+    const reply = data.content?.[0]?.text || "Please call us at (503) 974-6979!";
+    history.push({ role: 'assistant', content: reply });
+    addMsg(reply, 'bot');
+    const lower = text.toLowerCase();
+    if (history.filter(m => m.role==='assistant').length >= 2 && !leadDone) {
+      showChips(['Leave my contact info', 'Call (503) 974-6979', 'Book online']);
+    } else if (lower.includes('botox') || lower.includes('filler')) {
+      showChips(['How much does it cost?', 'How long does it last?', 'Book free consult']);
+    } else if (lower.includes('laser') || lower.includes('hair')) {
+      showChips(['Does it hurt?', 'How many sessions?', 'Book free consult']);
+    } else {
+      showChips(['Botox & fillers', 'Laser hair removal', 'Book a consult']);
+    }
+  } catch(e) {
+    hideTyping();
+    addMsg("So sorry — please call us at (503) 974-6979!", 'bot');
+  }
+}
+</script>
 
 <script>
 // Nav scroll effect
@@ -1294,4 +1531,3 @@ fadeEls.forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
-
